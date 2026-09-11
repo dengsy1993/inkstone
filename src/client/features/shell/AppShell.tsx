@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useRef } from 'react';
-import { Eye, FileText, ListTree, PanelLeft, PencilLine } from 'lucide-react';
+import { FileText, ListTree, PanelLeft, PencilLine } from 'lucide-react';
 import { cn } from '../../lib/cn';
 import { registerAll } from '../../lib/hotkeys';
 import { useBreakpoint } from '../../lib/hooks';
@@ -140,8 +140,7 @@ function MobileShell() {
         { id: 'nav' as const, icon: <ListTree size={19}/>, label: t("common.navigation") },
         { id: 'list' as const, icon: <FileText size={19}/>, label: t("common.note") },
         ...(activeNoteId ? [
-            { id: 'editor' as const, icon: <PencilLine size={19}/>, label: t("common.edit") },
-            { id: 'preview' as const, icon: <Eye size={19}/>, label: t("common.preview") },
+            { id: 'editor' as const, icon: <PencilLine size={19}/>, label: t("common.current_note") },
         ] : []),
     ];
     return (<div className="relative flex h-full min-h-0 w-full flex-col overflow-hidden bg-[var(--bg-base)] pt-[env(safe-area-inset-top)]">
@@ -153,7 +152,7 @@ function MobileShell() {
           <NoteList />
         </div>
         <div aria-hidden={!notePane} inert={!notePane} data-active={notePane || undefined} data-from="right" className="mobile-pane-layer absolute inset-0">
-          {notePane && activeNoteId && (<Suspense fallback={<WorkspaceFallback />}><Workspace mobileLayout={pane === 'preview' ? 'preview' : 'edit'} onMobileBack={() => setPane('list')}/></Suspense>) }
+          {notePane && activeNoteId && (<Suspense fallback={<WorkspaceFallback />}><Workspace onMobileBack={() => setPane('list')}/></Suspense>) }
         </div>
       </div>
 
@@ -265,7 +264,7 @@ function useGlobalHotkeys(): void {
                 group: () => t("common.interface"),
                 allowInInput: true,
                 handler: () => {
-                    const order = ['edit', 'split', 'preview'] as const;
+                    const order = ['live', 'split', 'preview'] as const;
                     const uiState = ui();
                     if (uiState.workspaceSecondaryNoteId) {
                         const pane = uiState.activeWorkspacePane;
