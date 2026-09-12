@@ -1,5 +1,9 @@
 import type { MessageKey } from './en-US';
 export const ZH_CN_MESSAGES = {
+    "mobile.account": "我的",
+    "mobile.view": "查看",
+    "mobile.menu": "菜单",
+    "mobile.back_to_account": "返回我的",
     "app.boot_label": "正在准备笔记本…",
     "app.document_title": "Inkstone",
     "app.meta_description": "运行在 Cloudflare 上的私有、自托管 Markdown 笔记本。",

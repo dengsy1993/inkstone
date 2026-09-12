@@ -42,7 +42,7 @@ interface UiState {
   workspaceSecondaryNoteId: string | null
   activeWorkspacePane: WorkspacePane
   workspacePaneLayouts: Record<WorkspacePane, EditorLayout>
-  mobilePane: 'nav' | 'list' | 'editor' | 'preview'
+  mobilePane: 'nav' | 'list' | 'editor' | 'preview' | 'account'
 
 
   view: ViewKind

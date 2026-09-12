@@ -1,4 +1,8 @@
 export const EN_US_MESSAGES = {
+    "mobile.account": "Me",
+    "mobile.view": "View",
+    "mobile.menu": "Menu",
+    "mobile.back_to_account": "Back to Me",
     "app.boot_label": "Preparing your notebook…",
     "app.document_title": "Inkstone",
     "app.meta_description": "A private, self-hosted Markdown notebook built on Cloudflare.",

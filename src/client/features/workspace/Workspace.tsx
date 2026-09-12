@@ -77,7 +77,8 @@ export function Workspace({ onMobileBack, pane = 'active', grouped = false, }: {
     const [containerWidth, setContainerWidth] = useState(0);
     const isMobile = breakpoint === 'mobile';
     const paneActive = !grouped || pane === 'active' || activeWorkspacePane === pane;
-    const layout = grouped && pane !== 'active'
+    const mobilePane = useUi((s) => s.mobilePane);
+    const layout = isMobile ? (mobilePane === 'preview' ? 'preview' : 'live') : grouped && pane !== 'active'
             ? workspacePaneLayouts[pane]
             : settings.preview.layout;
     const showEditor = layout !== 'preview';
@@ -317,6 +318,7 @@ export function Workspace({ onMobileBack, pane = 'active', grouped = false, }: {
             ref={titleInputRef}
             type="text"
             value={note.title}
+            readOnly={isMobile && mobilePane === 'preview'}
             maxLength={LIMITS.titleMaxLength}
             aria-label={t("workspace.note_title")}
             placeholder={t("common.untitled_note")}
@@ -359,7 +361,7 @@ export function Workspace({ onMobileBack, pane = 'active', grouped = false, }: {
           <span className="mr-1 hidden xl:inline-flex">
             <SaveIndicator />
           </span>
-          <div className="mr-1">
+          <div className={isMobile ? 'hidden' : 'mr-1'}>
             <Segmented label={t("workspace.layout")} size="sm" value={layout} onChange={setEditorLayout} options={[
             { value: 'live', label: <Pencil size={12.5}/>, title: t("workspace.live_preview") },
             { value: 'split', label: <Columns2 size={12.5}/>, title: t("workspace.split_view"), combo: 'mod+\\' },
